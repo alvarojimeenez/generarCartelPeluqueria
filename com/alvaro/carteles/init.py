@@ -1,7 +1,16 @@
 import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageDraw, ImageFont
+
+# Función para manejar rutas en PyInstaller
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 # ========= VENTANA DE ENTRADA PERSONALIZADA =========
 class EntradaTexto:
@@ -59,7 +68,8 @@ imagen = Image.new("RGB", (ancho, alto), color=fondo_color)
 draw = ImageDraw.Draw(imagen)
 
 # CARGAR Y ESCALAR LOGO
-logo = Image.open("imagen_logo/logo.jpg").convert("RGBA")
+logo_path = resource_path("imagen_logo/logo.jpg")
+logo = Image.open(logo_path).convert("RGBA")
 max_ancho = 700
 max_alto = 340
 logo.thumbnail((max_ancho, max_alto), resample=Image.LANCZOS)
@@ -78,10 +88,10 @@ fuente_normal = ImageFont.truetype("arial.ttf", 54)
 fuente_telefono = ImageFont.truetype("arialbd.ttf", 65)
 
 # EMOJIS PNG
-emoji_sol = Image.open("emojis/sol.png").convert("RGBA").resize((65, 65))
-emoji_palmera = Image.open("emojis/palmera.png").convert("RGBA").resize((40, 50))
-emoji_tijeras = Image.open("emojis/tijeras.png").convert("RGBA").resize((40, 50))
-emoji_phone = Image.open("emojis/phone.png").convert("RGBA").resize((55, 55)) 
+emoji_sol = Image.open(resource_path("emojis/sol.png")).convert("RGBA").resize((65, 65))
+emoji_palmera = Image.open(resource_path("emojis/palmera.png")).convert("RGBA").resize((40, 50))
+emoji_tijeras = Image.open(resource_path("emojis/tijeras.png")).convert("RGBA").resize((40, 50))
+emoji_phone = Image.open(resource_path("emojis/phone.png")).convert("RGBA").resize((55, 55))
 
 # TEXTOS FIJOS
 texto1 = "¡¡NOS VAMOS DE VACACIONES!!"
