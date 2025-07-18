@@ -10,8 +10,8 @@ draw = ImageDraw.Draw(imagen)
 
 # CARGAR Y ESCALAR LOGO
 logo = Image.open("imagen_logo/logo.jpg").convert("RGBA")
-max_ancho = 600
-max_alto = 220
+max_ancho = 700
+max_alto = 340
 logo.thumbnail((max_ancho, max_alto), resample=Image.LANCZOS)
 pos_logo = ((ancho - logo.width) // 2, 100)
 imagen.paste(logo, pos_logo, logo)
