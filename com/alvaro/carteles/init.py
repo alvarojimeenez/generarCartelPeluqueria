@@ -1,8 +1,58 @@
 import os
+import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageDraw, ImageFont
 
+# ========= VENTANA DE ENTRADA PERSONALIZADA =========
+class EntradaTexto:
+    def __init__(self):
+        self.resultado = None
+        self.root = tk.Tk()
+        self.root.title("Generador de Carteles")
+        self.root.geometry("550x220")
+        self.root.resizable(False, False)
+
+        # Título visual
+        titulo = tk.Label(self.root, text="Generador de Carteles", font=("Arial", 20, "bold"))
+        titulo.pack(pady=10)
+
+        # Etiqueta + campo
+        label = tk.Label(self.root, text="¿Qué mensaje quieres poner debajo del título?\n(ej: Estaremos cerrados del dd al dd de mm):")
+        label.pack()
+
+        self.entry = tk.Entry(self.root, width=60)
+        self.entry.pack(pady=5)
+
+        # Botones
+        botones = tk.Frame(self.root)
+        botones.pack(pady=10)
+
+        aceptar = tk.Button(botones, text="Aceptar", command=self.aceptar)
+        aceptar.pack(side=tk.LEFT, padx=10)
+
+        cancelar = tk.Button(botones, text="Cancelar", command=self.root.destroy)
+        cancelar.pack(side=tk.LEFT, padx=10)
+
+        self.root.mainloop()
+
+    def aceptar(self):
+        texto = self.entry.get()
+        if texto.strip() == "":
+            messagebox.showerror("Error", "Debes escribir un mensaje para continuar.")
+        else:
+            self.resultado = texto
+            self.root.destroy()
+
+# ========= OBTENER TEXTO DINÁMICO =========
+entrada = EntradaTexto()
+texto2 = entrada.resultado
+
+if texto2 is None:
+    exit()
+
+# ========= CONFIGURACIÓN DEL CARTEL =========
 print("Comienzo de la app")
-# CONFIGURACIÓN DEL CARTEL
+
 ancho, alto = 1080, 1346
 fondo_color = (180, 180, 180)  # gris claro
 imagen = Image.new("RGB", (ancho, alto), color=fondo_color)
@@ -27,15 +77,14 @@ fuente_negrita = ImageFont.truetype("arialbd.ttf", 45)
 fuente_normal = ImageFont.truetype("arial.ttf", 54)
 fuente_telefono = ImageFont.truetype("arialbd.ttf", 65)
 
-# EMOJIS PNG (ajusta el path según tu estructura)
+# EMOJIS PNG
 emoji_sol = Image.open("emojis/sol.png").convert("RGBA").resize((65, 65))
 emoji_palmera = Image.open("emojis/palmera.png").convert("RGBA").resize((40, 50))
 emoji_tijeras = Image.open("emojis/tijeras.png").convert("RGBA").resize((40, 50))
 emoji_phone = Image.open("emojis/phone.png").convert("RGBA").resize((55, 55)) 
 
-# TEXTOS
+# TEXTOS FIJOS
 texto1 = "¡¡NOS VAMOS DE VACACIONES!!"
-texto2 = "Estaremos cerrados del 22 al 26 de julio"
 texto3 = "Para cualquier duda, contactad al"
 telefono = "(621181640)"
 texto4 = "¡Nos vemos a la vuelta!"
@@ -52,29 +101,22 @@ def centrar_texto(draw, texto, fuente, y, color):
 y = linea_inferior_y + 40
 espacio = 100
 
-# TÍTULO CON EMOJIS (🌞 texto ✂️ 🌴)
+# TÍTULO CON EMOJIS
 x_texto, texto1_width = centrar_texto(draw, texto1, fuente_negrita, y + 40, "black")
-emoji_y = y  # alineación vertical
+emoji_y = y
 
-# Sol a la izquierda
 imagen.paste(emoji_sol, (x_texto - 80, emoji_y + 40), emoji_sol)
-# Tijeras a la derecha
 imagen.paste(emoji_tijeras, (x_texto + texto1_width + 10, emoji_y + 40), emoji_tijeras)
-# Palmera más a la derecha
 imagen.paste(emoji_palmera, (x_texto + texto1_width + 50, emoji_y + 40), emoji_palmera)
 
-# Líneas de texto
+# TEXTOS
 centrar_texto(draw, texto2, fuente_normal, y + espacio + 130, "black")
-centrar_texto(draw, texto3, fuente_normal, y + 2 * espacio +230, "black")
-
-# Teléfono con emoji 📞
+centrar_texto(draw, texto3, fuente_normal, y + 2 * espacio + 230, "black")
 x_tel, _ = centrar_texto(draw, telefono, fuente_telefono, y + 3 * espacio + 230, "blue")
 imagen.paste(emoji_phone, (x_tel - 65, y + 3 * espacio + 230 + 10), emoji_phone)
+centrar_texto(draw, texto4, fuente_normal, y + 4 * espacio + 330, "black")
 
-# Línea final
-centrar_texto(draw, texto4, fuente_normal, y + 4 * espacio+ 330, "black")
-
-# GUARDAR
+# GUARDAR IMAGEN
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 os.makedirs(downloads_dir, exist_ok=True)
 output_path = os.path.join(downloads_dir, "cartel_redes.jpg")
