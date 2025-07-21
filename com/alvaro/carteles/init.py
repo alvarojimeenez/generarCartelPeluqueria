@@ -52,8 +52,8 @@ def generar_cartel(texto_dinamico):
 
     # TEXTOS FIJOS
     texto1 = "¡¡NOS VAMOS DE VACACIONES!!"
-    texto3 = "Para cualquier duda, contactad al"
-    telefono = "(621181640)"
+    texto3 = "Disculpen las molestias"
+    ##telefono = "(621181640)"
     texto4 = "¡Nos vemos a la vuelta!"
 
     # CENTRADO DE TEXTO
@@ -79,8 +79,8 @@ def generar_cartel(texto_dinamico):
     # TEXTOS
     centrar_texto(draw, texto_dinamico, fuente_normal, y + espacio + 130, "black")
     centrar_texto(draw, texto3, fuente_normal, y + 2 * espacio + 230, "black")
-    x_tel, _ = centrar_texto(draw, telefono, fuente_telefono, y + 3 * espacio + 230, "blue")
-    imagen.paste(emoji_phone, (x_tel - 65, y + 3 * espacio + 230 + 10), emoji_phone)
+    ##x_tel, _ = centrar_texto(draw, telefono, fuente_telefono, y + 3 * espacio + 230, "blue")
+    ##imagen.paste(emoji_phone, (x_tel - 65, y + 3 * espacio + 230 + 10), emoji_phone)
     centrar_texto(draw, texto4, fuente_normal, y + 4 * espacio + 330, "black")
 
     # Guardar imagen en ruta accesible (en Android podría ser diferente)
