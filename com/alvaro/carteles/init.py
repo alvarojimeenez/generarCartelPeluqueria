@@ -91,12 +91,12 @@ fuente_telefono = ImageFont.truetype("arialbd.ttf", 65)
 emoji_sol = Image.open(resource_path("emojis/sol.png")).convert("RGBA").resize((65, 65))
 emoji_palmera = Image.open(resource_path("emojis/palmera.png")).convert("RGBA").resize((40, 50))
 emoji_tijeras = Image.open(resource_path("emojis/tijeras.png")).convert("RGBA").resize((40, 50))
-emoji_phone = Image.open(resource_path("emojis/phone.png")).convert("RGBA").resize((55, 55))
+## emoji_phone = Image.open(resource_path("emojis/phone.png")).convert("RGBA").resize((55, 55))
 
 # TEXTOS FIJOS
 texto1 = "¡¡NOS VAMOS DE VACACIONES!!"
-texto3 = "Para cualquier duda, contactad al"
-telefono = "(621181640)"
+texto3 = "Disculpen las molestias"
+## telefono = "(621181640)"
 texto4 = "¡Nos vemos a la vuelta!"
 
 # CENTRADO DE TEXTO
@@ -121,10 +121,10 @@ imagen.paste(emoji_palmera, (x_texto + texto1_width + 50, emoji_y + 40), emoji_p
 
 # TEXTOS
 centrar_texto(draw, texto2, fuente_normal, y + espacio + 130, "black")
-centrar_texto(draw, texto3, fuente_normal, y + 2 * espacio + 230, "black")
-x_tel, _ = centrar_texto(draw, telefono, fuente_telefono, y + 3 * espacio + 230, "blue")
-imagen.paste(emoji_phone, (x_tel - 65, y + 3 * espacio + 230 + 10), emoji_phone)
-centrar_texto(draw, texto4, fuente_normal, y + 4 * espacio + 330, "black")
+centrar_texto(draw, texto3, fuente_normal, y + 2 * espacio + 200, "black")
+## x_tel, _ = centrar_texto(draw, telefono, fuente_telefono, y + 3 * espacio + 230, "blue")
+## imagen.paste(emoji_phone, (x_tel - 65, y + 3 * espacio + 230 + 10), emoji_phone)
+centrar_texto(draw, texto4, fuente_normal, y + 4 * espacio + 280, "black")
 
 # GUARDAR IMAGEN
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
